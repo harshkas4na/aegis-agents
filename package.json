@@ -1,7 +1,7 @@
 {
-  "name": "rc-agents",
-  "version": "0.2.0",
-  "description": "x402 × Reactive Smart Contracts — Agent-Serviced Automation Marketplace",
+  "name": "aegis-agents",
+  "version": "0.1.0",
+  "description": "Aegis — an x402 × Reactive Smart Contracts marketplace where AI agents pay for autonomous on-chain protection",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tsc",
