@@ -65,6 +65,7 @@ import {
   getDCAReactiveBalance,
 } from "./chain";
 import { fundRCGasPool } from "./bridge";
+import { renderLanding } from "./landing";
 import { parseAbi, type Address } from "viem";
 
 const app = express();
@@ -759,6 +760,23 @@ app.get("/health", async (_req: Request, res: Response) => {
   } catch (err: any) {
     res.status(503).json({ status: "error", reason: err.message });
   }
+});
+
+// ── Landing page (humans) + skill docs (agents) ────────────────────────────────
+
+app.get("/", (_req: Request, res: Response) => {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.send(renderLanding());
+});
+
+app.get("/skills.md", (_req: Request, res: Response) => {
+  const skillPath = path.resolve(__dirname, "../../skills.md");
+  if (!fs.existsSync(skillPath)) {
+    res.status(404).json({ error: "skills.md not found" });
+    return;
+  }
+  res.setHeader("Content-Type", "text/markdown; charset=utf-8");
+  res.send(fs.readFileSync(skillPath, "utf-8"));
 });
 
 // ── OpenAPI spec ──────────────────────────────────────────────────────────────
